@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
 const style = StyleSheet.create({
-  topBar: { flex: 1, backgroundColor: "silver" },
+  topBar: { height: 70, backgroundColor: "#212121" },
 });
 export default style;

@@ -1,9 +1,16 @@
 import React from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Linking, Alert, TouchableWithoutFeedback } from "react-native";
 import style from "../style/Album";
 import { observer } from "mobx-react";
 
+function formatNumber(number) {
+  number = number || 0;
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
 class Album extends React.Component {
+  openLink = link => {
+    Linking.openURL(link).catch(err => Alert(JSON.stringify(err)));
+  };
   render() {
     const { album } = this.props;
     return (
@@ -27,12 +34,38 @@ class Album extends React.Component {
             </View>
           </View>
           <View>
-            <Text>Actions</Text>
+            <Image style={style.close} source={require("../assets/close.png")} />
           </View>
         </View>
-        <View>
-          <Text>albumActions</Text>
-        </View>
+        {album.lastfm_url && (
+          <View style={style.albumBar}>
+            <View style={style.leftBar}>
+              <Image style={style.icon} source={require("../assets/fan.png")} />
+              <Text style={style.listeners}>{formatNumber(album.listeners)}</Text>
+            </View>
+            <View style={style.rightBar}>
+              {album.yandex_link && (
+                <TouchableWithoutFeedback
+                  onPress={() =>
+                    this.openLink(`https://music.yandex.ru/album/${album.yandex_link}`)
+                  }>
+                  <Image style={style.icon} source={require("../assets/yandex.png")} />
+                </TouchableWithoutFeedback>
+              )}
+              {album.google_link && (
+                <TouchableWithoutFeedback
+                  onPress={() =>
+                    this.openLink(`https://play.google.com/music/m/${album.google_link}`)
+                  }>
+                  <Image style={style.icon} source={require("../assets/google.png")} />
+                </TouchableWithoutFeedback>
+              )}
+              <TouchableWithoutFeedback onPress={() => this.openLink(album.lastfm_url)}>
+                <Image style={style.icon} source={require("../assets/lastfm.png")} />
+              </TouchableWithoutFeedback>
+            </View>
+          </View>
+        )}
       </View>
     );
   }
