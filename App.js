@@ -15,7 +15,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <View style={style.app}>
           <TopBar />
-          <Content albums={store.albums} isLoading={store.isLoading} />
+          <Content />
           <BottomBar />
         </View>
       </Provider>

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, Linking, Alert, TouchableWithoutFeedback } from "react-native";
+import { View, Text, Image, Linking, TouchableWithoutFeedback } from "react-native";
 import style from "../style/Album";
 import { observer } from "mobx-react";
 
@@ -9,7 +9,7 @@ function formatNumber(number) {
 }
 class Album extends React.Component {
   openLink = link => {
-    Linking.openURL(link).catch(err => Alert(JSON.stringify(err)));
+    Linking.openURL(link).catch(err => console.log(JSON.stringify(err)));
   };
   render() {
     const { album } = this.props;

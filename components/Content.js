@@ -3,18 +3,19 @@ import { FlatList, View, Text } from "react-native";
 import style from "../style/Content";
 import { observer, inject } from "mobx-react";
 import Album from "./Album";
+import Loader from "./Loader";
 
 class TopBar extends React.Component {
   keyExtractor = (item, index) => item.album_id.toString();
   render() {
-    const { albums, isLoading } = this.props.store;
+    const { albumList, isLoading } = this.props.store;
     return (
       <View style={style.content}>
         {isLoading ? (
-          <Text>loading</Text>
+          <Loader />
         ) : (
           <FlatList
-            data={albums}
+            data={albumList}
             renderItem={({ item }) => <Album album={item} />}
             keyExtractor={this.keyExtractor}
           />

@@ -20,9 +20,11 @@ const style = StyleSheet.create({
     justifyContent: "space-between",
     borderTopColor: "#e0e0e0",
     borderTopWidth: 1,
+    paddingRight: 5,
   },
   close: { width: 16, height: 16, margin: 7 },
-  icon: { width: 26, height: 26, margin: 7 },
+  icon: { width: 26, height: 26, margin: 7, marginLeft: 15 },
+
   leftBar: { flexGrow: 1, flexDirection: "row" },
   rightBar: { flex: 1, flexDirection: "row", justifyContent: "flex-end" },
   listeners: { fontSize: 18, alignSelf: "center" },
