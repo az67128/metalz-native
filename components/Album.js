@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, Linking, TouchableWithoutFeedback } from "react-native";
+import { View, Text, Image, Linking, TouchableOpacity, Alert } from "react-native";
 import style from "../style/Album";
 import { observer } from "mobx-react";
 
@@ -11,16 +11,36 @@ class Album extends React.Component {
   openLink = link => {
     Linking.openURL(link).catch(err => console.log(JSON.stringify(err)));
   };
+  promtForDelete = () => {
+    const { album, addToHateList } = this.props;
+    Alert.alert(
+      "Delete album",
+      `${album.author} - ${album.title}`,
+      [
+        {
+          text: "Cancel",
+          onPress: () => {},
+          style: "cancel",
+        },
+        { text: "Delete", onPress: () => addToHateList(album.album_id), style: "delete" },
+      ],
+      { cancelable: true },
+    );
+  };
   render() {
-    const { album } = this.props;
+    const { album, togglePreview, addToHateList } = this.props;
+
     return (
       <View style={style.album}>
         <View style={style.content}>
           <View>
-            <Image
-              source={{ uri: `https://spirit-of-metal.com${album.cover_url}` }}
-              style={style.cover}
-            />
+            <TouchableOpacity
+              onPress={() => togglePreview(`https://spirit-of-metal.com${album.cover_url}`)}>
+              <Image
+                source={{ uri: `https://spirit-of-metal.com${album.cover_url}` }}
+                style={style.cover}
+              />
+            </TouchableOpacity>
           </View>
           <View style={style.description}>
             <View style={style.authorWrap}>
@@ -34,7 +54,9 @@ class Album extends React.Component {
             </View>
           </View>
           <View>
-            <Image style={style.close} source={require("../assets/close.png")} />
+            <TouchableOpacity onPress={this.promtForDelete}>
+              <Image style={style.close} source={require("../assets/close.png")} />
+            </TouchableOpacity>
           </View>
         </View>
         {album.lastfm_url && (
@@ -45,24 +67,24 @@ class Album extends React.Component {
             </View>
             <View style={style.rightBar}>
               {album.yandex_link && (
-                <TouchableWithoutFeedback
+                <TouchableOpacity
                   onPress={() =>
                     this.openLink(`https://music.yandex.ru/album/${album.yandex_link}`)
                   }>
                   <Image style={style.icon} source={require("../assets/yandex.png")} />
-                </TouchableWithoutFeedback>
+                </TouchableOpacity>
               )}
               {album.google_link && (
-                <TouchableWithoutFeedback
+                <TouchableOpacity
                   onPress={() =>
                     this.openLink(`https://play.google.com/music/m/${album.google_link}`)
                   }>
                   <Image style={style.icon} source={require("../assets/google.png")} />
-                </TouchableWithoutFeedback>
+                </TouchableOpacity>
               )}
-              <TouchableWithoutFeedback onPress={() => this.openLink(album.lastfm_url)}>
+              <TouchableOpacity onPress={() => this.openLink(album.lastfm_url)}>
                 <Image style={style.icon} source={require("../assets/lastfm.png")} />
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
             </View>
           </View>
         )}

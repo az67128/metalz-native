@@ -1,8 +1,12 @@
 import { StyleSheet } from "react-native";
 
 const style = StyleSheet.create({
-  loader: { flex: 1, justifyContent: "center" },
-  loaderImage: { alignSelf: "center", width: 70, height: 70 },
+  loader: { flex: 1, justifyContent: "center", backgroundColor: "#212121" },
+  loaderImage: {
+    alignSelf: "center",
+    width: 90,
+    height: 90,
+  },
 });
 export default style;
 
