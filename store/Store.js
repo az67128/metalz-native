@@ -88,7 +88,9 @@ const Store = types
             const hateFilter = !self.hateList.includes(album.album_id);
             const yandexFilter = self.isYandexActive ? album.yandex_link : true;
             const googleFilter = self.isGoogleActive ? album.google_link : true;
-            const genreFilter = self.genreFilter ? album.genre === self.genreFilter : true;
+            const genreFilter = self.genreFilter
+              ? album.genre.toLowerCase().indexOf(self.genreFilter.toLowerCase()) > -1
+              : true;
             return hateFilter && yandexFilter && googleFilter && genreFilter;
           })
           .sort((a, b) => {

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "metalz",
-    "slug": "metalz",
+    "name": "MetalZ",
+    "slug": "MetalZ",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": ["ios", "android"],
@@ -11,7 +11,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#212121"
     },
     "updates": {
       "fallbackToCacheTimeout": 0

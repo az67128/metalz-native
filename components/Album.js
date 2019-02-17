@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, Image, Linking, TouchableOpacity, Alert } from "react-native";
 import style from "../style/Album";
 import { observer } from "mobx-react";
+import translation from "../constants/translation";
 
 function formatNumber(number) {
   number = number || 0;
@@ -14,15 +15,19 @@ class Album extends React.Component {
   promtForDelete = () => {
     const { album, addToHateList } = this.props;
     Alert.alert(
-      "Delete album",
+      translation("deleteAlbum"),
       `${album.author} - ${album.title}`,
       [
         {
-          text: "Cancel",
+          text: translation("cancel"),
           onPress: () => {},
           style: "cancel",
         },
-        { text: "Delete", onPress: () => addToHateList(album.album_id), style: "delete" },
+        {
+          text: translation("delete"),
+          onPress: () => addToHateList(album.album_id),
+          style: "delete",
+        },
       ],
       { cancelable: true },
     );

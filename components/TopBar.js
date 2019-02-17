@@ -2,21 +2,8 @@ import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import style from "../style/TopBar";
 import { observer, inject } from "mobx-react";
+import translate from "../constants/translation";
 
-const monthName = [
-  "JAN",
-  "FEB",
-  "MAR",
-  "APR",
-  "MAY",
-  "JUN",
-  "JUL",
-  "AUG",
-  "SEP",
-  "OCT",
-  "NOV",
-  "DEC",
-];
 class TopBar extends React.Component {
   render() {
     const { store } = this.props;
@@ -26,7 +13,7 @@ class TopBar extends React.Component {
           <Image style={style.icon} source={require("../assets/left.png")} />
         </TouchableOpacity>
         <Text style={style.date}>
-          {monthName[store.date.getMonth()]} {store.date.getFullYear()}
+          {translate("month")[store.date.getMonth()]} {store.date.getFullYear()}
         </Text>
         <TouchableOpacity onPress={() => store.changeMonth(1)}>
           <Image style={style.icon} source={require("../assets/right.png")} />
