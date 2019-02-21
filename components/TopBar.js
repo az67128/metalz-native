@@ -1,8 +1,10 @@
-import React from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
-import style from "../style/TopBar";
-import { observer, inject } from "mobx-react";
-import translate from "../constants/translation";
+import React from 'react';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
+import style from '../style/TopBar';
+import { observer, inject } from 'mobx-react';
+import translate from '../constants/translation';
+import LeftIcon from '../assets/LeftIcon';
+import RightIcon from '../assets/RightIcon';
 
 class TopBar extends React.Component {
   render() {
@@ -10,16 +12,16 @@ class TopBar extends React.Component {
     return (
       <View style={style.topBar}>
         <TouchableOpacity onPress={() => store.changeMonth(-1)}>
-          <Image style={style.icon} source={require("../assets/left.png")} />
+          <LeftIcon style={style.icon} />
         </TouchableOpacity>
         <Text style={style.date}>
-          {translate("month")[store.date.getMonth()]} {store.date.getFullYear()}
+          {translate('month')[store.date.getMonth()]} {store.date.getFullYear()}
         </Text>
         <TouchableOpacity onPress={() => store.changeMonth(1)}>
-          <Image style={style.icon} source={require("../assets/right.png")} />
+          <RightIcon style={style.icon} />
         </TouchableOpacity>
       </View>
     );
   }
 }
-export default inject("store")(observer(TopBar));
+export default inject('store')(observer(TopBar));

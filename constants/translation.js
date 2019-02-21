@@ -1,39 +1,43 @@
-import { Localization } from "expo-localization";
+import { Localization } from 'expo-localization';
 
 const language = Localization.locale;
 
 const translation = {
   month: {
-    en: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
-    "ru-RU": ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"],
+    en: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+    'ru-RU': ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
   },
   deleteAlbum: {
-    en: "Delete album",
-    "ru-RU": "Удалить альбом",
+    en: 'Delete album',
+    'ru-RU': 'Удалить альбом',
   },
   cancel: {
-    en: "Cancel",
-    "ru-RU": "Отмена",
+    en: 'Cancel',
+    'ru-RU': 'Отмена',
   },
   delete: {
-    en: "Delete",
-    "ru-RU": "Удалить",
+    en: 'Delete',
+    'ru-RU': 'Удалить',
   },
   prevMonth: {
-    en: "Previous month",
-    "ru-RU": "Предыдущий месяц",
+    en: 'Previous month',
+    'ru-RU': 'Предыдущий месяц',
   },
   nextMonth: {
-    en: "Next month",
-    "ru-RU": "Следующий месяц",
+    en: 'Next month',
+    'ru-RU': 'Следующий месяц',
   },
   selectGenre: {
-    en: "Select genre",
-    "ru-RU": "Выберите жанр",
+    en: 'Select genre',
+    'ru-RU': 'Выберите жанр',
   },
   reset: {
-    en: "Reset",
-    "ru-RU": "Сбросить",
+    en: 'Reset',
+    'ru-RU': 'Сбросить',
+  },
+  noAlbums: {
+    en: 'No metal releases for this month',
+    'ru-RU': 'Альбомы не нашлись',
   },
 };
 const translate = phrase => {
