@@ -20,9 +20,13 @@ const Store = types
     isGenreSelect: types.optional(types.boolean, false),
     coverPreview: types.optional(types.string, ''),
     itemsLimit: types.optional(types.number, 10),
+    searchString: types.optional(types.string, ''),
   })
   .actions(self => {
     const store = self;
+    const changeSearchString = text => {
+      store.searchString = text;
+    };
     const loadAlbums = flow(function* loadAlbums() {
       store.itemsLimit = 10;
       const date = store.date;
@@ -85,6 +89,7 @@ const Store = types
       loadHateList,
       selectGenre,
       increaseItemsLimit,
+      changeSearchString,
     };
   })
   .views(self => {
@@ -98,7 +103,10 @@ const Store = types
             const genreFilter = self.genreFilter
               ? album.genre.toLowerCase().indexOf(self.genreFilter.toLowerCase()) > -1
               : true;
-            return hateFilter && yandexFilter && googleFilter && genreFilter;
+            const searchFilter = self.searchString
+              ? album.author.toLowerCase().indexOf(self.searchString.toLowerCase()) > -1
+              : true;
+            return hateFilter && yandexFilter && googleFilter && genreFilter && searchFilter;
           })
           .sort((a, b) => {
             if (self.sortByRating) {
