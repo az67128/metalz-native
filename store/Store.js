@@ -1,6 +1,6 @@
-import { types, flow } from "mobx-state-tree";
-import { AsyncStorage } from "react-native";
-import Album from "./Album";
+import { types, flow } from 'mobx-state-tree';
+import { AsyncStorage } from 'react-native';
+import Album from './Album';
 function get(year = new Date().getFullYear(), month = new Date().getMonth() + 1) {
   return fetch(`https://ws-dqs.wedeploy.io/?year=${year}&month=${month}`)
     .then(data => data.json())
@@ -8,7 +8,7 @@ function get(year = new Date().getFullYear(), month = new Date().getMonth() + 1)
 }
 
 const Store = types
-  .model("Store", {
+  .model('Store', {
     albums: types.array(Album),
     date: types.optional(types.Date, new Date()),
     hateList: types.optional(types.array(types.number), []),
@@ -16,13 +16,15 @@ const Store = types
     sortByRating: types.optional(types.boolean, true),
     isYandexActive: types.optional(types.boolean, false),
     isGoogleActive: types.optional(types.boolean, false),
-    genreFilter: types.optional(types.string, ""),
+    genreFilter: types.optional(types.string, ''),
     isGenreSelect: types.optional(types.boolean, false),
-    coverPreview: types.optional(types.string, ""),
+    coverPreview: types.optional(types.string, ''),
+    itemsLimit: types.optional(types.number, 10),
   })
   .actions(self => {
     const store = self;
     const loadAlbums = flow(function* loadAlbums() {
+      store.itemsLimit = 10;
       const date = store.date;
       store.isLoading = true;
       try {
@@ -34,7 +36,7 @@ const Store = types
     });
     const loadHateList = flow(function* loadHateList() {
       try {
-        const hateList = yield AsyncStorage.getItem("hateList");
+        const hateList = yield AsyncStorage.getItem('hateList');
         store.hateList = hateList ? JSON.parse(hateList) : [];
       } catch (error) {
         //alert(error);
@@ -44,7 +46,7 @@ const Store = types
     const addToHateList = async album_id => {
       try {
         store.hateList.push(album_id);
-        await AsyncStorage.setItem("hateList", JSON.stringify([...store.hateList, album_id]));
+        await AsyncStorage.setItem('hateList', JSON.stringify([...store.hateList, album_id]));
       } catch (error) {
         //alert(error);
       }
@@ -60,14 +62,18 @@ const Store = types
       store.loadAlbums();
     };
     const toggleFilter = prop => {
+      store.itemsLimit = 10;
       store[prop] = !store[prop];
     };
     const togglePreview = url => {
-      store.coverPreview = Boolean(url) ? url : "";
+      store.coverPreview = Boolean(url) ? url : '';
     };
     const selectGenre = genre => {
       store.genreFilter = genre;
       store.isGenreSelect = false;
+    };
+    const increaseItemsLimit = () => {
+      store.itemsLimit += 10;
     };
     return {
       loadAlbums,
@@ -78,6 +84,7 @@ const Store = types
       addToHateList,
       loadHateList,
       selectGenre,
+      increaseItemsLimit,
     };
   })
   .views(self => {
@@ -105,7 +112,8 @@ const Store = types
               }
               return 0;
             }
-          });
+          })
+          .slice(0, self.itemsLimit);
       },
     };
   });

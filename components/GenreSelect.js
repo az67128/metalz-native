@@ -9,11 +9,7 @@ export default class ModalExample extends Component {
   render() {
     const { isVisible, toggle, selectGenre, genreFilter } = this.props;
     return (
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={isVisible}
-        onRequestClose={() => {}}>
+      <Modal animationType="slide" transparent={false} visible={isVisible} onRequestClose={toggle}>
         <View style={{ flex: 1 }}>
           <View style={style.topBar}>
             <TouchableOpacity onPress={toggle}>
