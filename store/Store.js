@@ -2,7 +2,7 @@ import { types, flow } from 'mobx-state-tree';
 import { AsyncStorage } from 'react-native';
 import Album from './Album';
 function get(year = new Date().getFullYear(), month = new Date().getMonth() + 1) {
-  return fetch(`https://ws-dqs.wedeploy.io/?year=${year}&month=${month}`)
+  return fetch(`https://metalz.herokuapp.com/?year=${year}&month=${month}`)
     .then(data => data.json())
     .then(res => res.body);
 }
@@ -63,6 +63,7 @@ const Store = types
       const date = store.date;
       const moveTo = new Date(date.setMonth(date.getMonth() + delta));
       store.date = moveTo;
+      store.searchString = '';
       store.loadAlbums();
     };
     const toggleFilter = prop => {
